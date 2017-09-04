@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  go:
+    image: golang:1.8
+    ports:
+      - "80:8080"
+    volumes:
+      - ./config:/go/config
+      - ./templates:/go/templates
+      - ./go-web:/go/go-web
+    command: /go/go-web
+    
