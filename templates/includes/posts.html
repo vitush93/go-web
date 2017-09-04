@@ -1,0 +1,17 @@
+{{ define "content" }}
+{{ range $key, $post := .Data }}
+<article>
+    <header>
+        <h2>
+            {{ $post.Title }}
+            <small>{{ $post.Posted.Format "02/01/2006 15:04" }}</small>
+        </h2>
+    </header>
+    <main>
+        <p>
+            {{ $post.Text }}
+        </p>
+    </main>
+</article>
+{{ end }}
+{{ end }}
