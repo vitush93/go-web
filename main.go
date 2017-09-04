@@ -64,6 +64,7 @@ func main() {
 
 	router := httprouter.New()
 	router.GET("/", homeHandler)
+	router.POST("/", newPostHandler)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
@@ -72,6 +73,14 @@ func homeHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	posts := model.FindAllPosts()
 
 	render(w, "posts.html", &TemplateData{Title: "Hello World", Data: posts})
+}
+
+func newPostHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	r.ParseForm()
+
+	model.CreatePost(r.FormValue("title"), r.FormValue("text"))
+
+	homeHandler(w, r, nil)
 }
 
 func render(w http.ResponseWriter, name string, data interface{}) {
